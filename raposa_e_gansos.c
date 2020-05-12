@@ -31,13 +31,13 @@ int main() {
     printf("        %c---%c---%c        \n");
     printf("        |   |   |        \n");
     printf("        |   |   |        \n");
-    printf("%C---%c---%c---%c---%c---%c---%c\n");
+    printf("%c---%c---%c---%c---%c---%c---%c\n");
     printf("|   |   |   |   |   |   |\n");
     printf("|   |   |   |   |   |   |\n");
-    printf("%C---%c---%c---%c---%c---%c---%c\n");
+    printf("%c---%c---%c---%c---%c---%c---%c\n");
     printf("|   |   |   |   |   |   |\n");
     printf("|   |   |   |   |   |   |\n");
-    printf("%C---%c---%c---%c---%c---%c---%c\n");
+    printf("%c---%c---%c---%c---%c---%c---%c\n");
     printf("        |   |   |        \n");
     printf("        |   |   |        \n");
     printf("        %c---%c---%c        \n");
