@@ -38,6 +38,23 @@ int temdiagonal(int i, int j){ //Verifica se a casa atual permite movimentos dia
 	}
 }
 
+int ganso_adjacente_raposa (int i, int j) { //verifica se tem um ganso adjacente a raposa para ela eliminar
+    char tab[7][7];
+    
+    if (temdiagonal(i, j) == 1) { //verifica no caso da raposa poder se movimentar na diagonal
+        if (tab[i-1][j-1] != 'o' || tab[i+1][j+1] != 'o' || tab[i+1][j-1] != 'o' || tab[i-1][j+1] != 'o' || tab[i+1][j] != 'o' || tab[i-1][j] != 'o' || tab[i][j+1] != 'o' || tab[i][j-1] != 'o') {
+            return 1; //possui um ou mais gansos adjacentes a raposa
+        }
+        return -1; //nao possui nenhum ganso adjacente
+    }
+    else { //verifica no caso da raposa nao poder se movimentar na diagonal
+        if (tab[i][j-1] != 'o' || tab[i][j+1] != 'o' || tab[i-1][j] != 'o' || tab[i+1][j] != 'o') {
+            return 1; //possui um ou mais gansos adjacentes a raposa
+        }
+        return -1; //nao possui nenhum ganso adjacente
+    }  
+}
+
 
 int main(void) {
   char m[7][7] = {{"  ooo  "}, {"  ooo  "}, {"AooZooK"}, {"BoooooJ"}, {"CDEFGHI"}, {"  LMN  "}, {"  OPQ  "}}; //Configuração Inicial
