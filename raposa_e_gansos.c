@@ -38,27 +38,71 @@ int temdiagonal(int i, int j){ //Verifica se a casa atual permite movimentos dia
 	}
 }
 
-int ganso_adjacente_raposa (int i, int j) { //verifica se tem um ganso adjacente a raposa para ela eliminar
+int casa_adjacente_raposa (int i, int j) { //verifica se o movimento da raposa pode ser executado
     char tab[7][7];
     
-    if (temdiagonal(i, j) == 1) { //verifica no caso da raposa poder se movimentar na diagonal
-        if (tab[i-1][j-1] != 'o' || tab[i+1][j+1] != 'o' || tab[i+1][j-1] != 'o' || tab[i-1][j+1] != 'o' || tab[i+1][j] != 'o' || tab[i-1][j] != 'o' || tab[i][j+1] != 'o' || tab[i][j-1] != 'o') {
-            return 1; //possui um ou mais gansos adjacentes a raposa
+    if (temdiagonal(i, j) == 1) {
+        if (tab[i-1][j-1] == 'Z' || tab[i+1][j+1] == 'Z' || tab[i+1][j-1] == 'Z' || tab[i-1][j+1] == 'Z' || tab[i+1][j] == 'Z' || tab[i-1][j] == 'Z' || tab[i][j+1] == 'Z' || tab[i][j-1] == 'Z') {
+            return 1; //casa eh adjacente a raposa
         }
-        return -1; //nao possui nenhum ganso adjacente
+        return -1; //casa nao eh adjacente a raposa
     }
-    else { //verifica no caso da raposa nao poder se movimentar na diagonal
-        if (tab[i][j-1] != 'o' || tab[i][j+1] != 'o' || tab[i-1][j] != 'o' || tab[i+1][j] != 'o') {
-            return 1; //possui um ou mais gansos adjacentes a raposa
+    else {
+        if (tab[i][j-1] == 'Z' || tab[i][j+1] == 'Z' || tab[i-1][j] == 'Z' || tab[i+1][j] == 'Z') {
+            return 1; //casa eh adjacente a raposa
         }
-        return -1; //nao possui nenhum ganso adjacente
-    }  
+        return -1; //casa nao eh adjacente a raposa
+    }
+}
+
+
+int casa_adjacente_ganso (char ganso, int i, int j) { //verfica se o movimento do ganso pode ser executado
+    
+    if (temdiagonal(i, j) == 1) {
+        if (tab[i-1][j-1] == ganso || tab[i+1][j+1] == ganso || tab[i+1][j-1] == ganso || tab[i-1][j+1] == ganso || tab[i+1][j] == ganso || tab[i-1][j] == ganso || tab[i][j+1] == ganso || tab[i][j-1] == ganso) {
+            return 1; //casa eh adjacente ao ganso
+        }
+        return -1; //casa nao eh adjacente ao ganso
+    }
+    else {
+        if (tab[i][j-1] == ganso || tab[i][j+1] == ganso || tab[i-1][j] == ganso || tab[i+1][j] == ganso) {
+            return 1; //casa eh adjacente ao ganso
+        }
+        return -1; //casa nao eh adjacente ao ganso
+    }
 }
 
 
 int main(void) {
-  char m[7][7] = {{"  ooo  "}, {"  ooo  "}, {"AooZooK"}, {"BoooooJ"}, {"CDEFGHI"}, {"  LMN  "}, {"  OPQ  "}}; //Configuração Inicial
+	int i, j, a, b;
+        char m[7][7] = {{"  ooo  "}, {"  ooo  "}, {"AooZooK"}, {"BoooooJ"}, {"CDEFGHI"}, {"  LMN  "}, {"  OPQ  "}}; //Configuração Inicial
 	imprimir(m);
+	
+	do {
+	    do {
+	        printf("vez da raposa, digite as coordenadas da casa para qual deseja se movimentar: ");
+	        scanf("%d %d", &i, &j);
+	    } while (casaehvalida(m[i][j]) == -1 || casa_adjacente_raposa(i, j) == -1);
+            system ("clear");
+            m[i][j] = 'Z';
+            //falta a casa antiga da raposa receber 'o'
+	    imprimir(m);
+	    
+	    do {
+            printf("vez dos gansos, digite as coordenadas do ganso que deseja movimentar: ");
+            scanf("%d %d", &a, &b);
+	    } while (m[a][b] == 'Z' || m[a][b] == 'o' ); //falta o caso das coordenadas serem fora do tabuleiro
+	    do {
+            printf("agora digite as coordenadas da casa para qual deseja se movimentar: ");
+            scanf("%d %d", &i, &j);
+            } while (casaehvalida(m[i][j]) == -1 || casa_adjacente_ganso(ganso, i, j) == -1);
+            system ("clear");
+            m[i][j] = ganso;
+            m[a][b] = 'o';
+            imprimir(m);
+        
+	} while (vitoria_raposa == -1 && vitoria_ganso == -1); 
+
 
   return 0;
 }
