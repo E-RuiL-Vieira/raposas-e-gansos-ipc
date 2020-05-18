@@ -57,6 +57,7 @@ int casa_adjacente_raposa (int i, int j) { //verifica se o movimento da raposa p
 
 
 int casa_adjacente_ganso (char ganso, int i, int j) { //verfica se o movimento do ganso pode ser executado
+    char tab[7][7];
     
     if (temdiagonal(i, j) == 1) {
         if (tab[i-1][j-1] == ganso || tab[i+1][j+1] == ganso || tab[i+1][j-1] == ganso || tab[i-1][j+1] == ganso || tab[i+1][j] == ganso || tab[i-1][j] == ganso || tab[i][j+1] == ganso || tab[i][j-1] == ganso) {
