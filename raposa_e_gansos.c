@@ -79,30 +79,30 @@ int main(void) {
         char m[7][7] = {{"  ooo  "}, {"  ooo  "}, {"AooZooK"}, {"BoooooJ"}, {"CDEFGHI"}, {"  LMN  "}, {"  OPQ  "}}; //Configuração Inicial
 	imprimir(m);
 	
-	do {
-	    do {
+	while (vitoria_raposa == -1 && vitoria_ganso == -1) {
+	    while (casaehvalida(m[i][j]) == -1 || casa_adjacente_raposa(i, j) == -1) {
 	        printf("vez da raposa, digite as coordenadas da casa para qual deseja se movimentar: ");
 	        scanf("%d %d", &i, &j);
-	    } while (casaehvalida(m[i][j]) == -1 || casa_adjacente_raposa(i, j) == -1);
+	    } 
             system ("clear");
             m[i][j] = 'Z';
             //falta a casa antiga da raposa receber 'o'
 	    imprimir(m);
 	    
-	    do {
+	    while (m[a][b] == 'Z' || m[a][b] == 'o' ) { //falta o caso das coordenadas serem fora do tabuleiro
             printf("vez dos gansos, digite as coordenadas do ganso que deseja movimentar: ");
             scanf("%d %d", &a, &b);
-	    } while (m[a][b] == 'Z' || m[a][b] == 'o' ); //falta o caso das coordenadas serem fora do tabuleiro
-	    do {
+	    } 
+	    while (casaehvalida(m[i][j]) == -1 || casa_adjacente_ganso(ganso, i, j) == -1) {
             printf("agora digite as coordenadas da casa para qual deseja se movimentar: ");
             scanf("%d %d", &i, &j);
-            } while (casaehvalida(m[i][j]) == -1 || casa_adjacente_ganso(ganso, i, j) == -1);
+            } 
             system ("clear");
             m[i][j] = ganso;
             m[a][b] = 'o';
             imprimir(m);
         
-	} while (vitoria_raposa == -1 && vitoria_ganso == -1); 
+	}  
 
 
   return 0;
